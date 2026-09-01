@@ -1,0 +1,51 @@
+{
+  "skill": "bug-cluster-heuristic",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "同一个服务今天下午连着报了 4 个缺陷，测试注意力还要继续砸这里吗？bug cluster？",
+      "expected_behavior": "应激活 bug-cluster-heuristic，定位附近轴并加码局部搜索、检查共因",
+      "notes": "模块连爆"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "刚找到一个上边界缺陷，要不要怀疑其他特性也有同类上边界问题？",
+      "expected_behavior": "应激活本 skill，把成群模式推广到同类边界",
+      "notes": "已找到缺陷处再找"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "缺陷成群是什么意思？找到一个附近还有没有？",
+      "expected_behavior": "应激活本 skill，解释启发式与三因，并给出加码步骤",
+      "notes": "概念直问"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "Redis 默认端口是多少",
+      "expected_behavior": "不应激活本 skill，因为是事实查询",
+      "notes": "诱饵: 无关事实"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "用例太多测不完，怎样按风险决定 optimal test amount 和何时停？",
+      "expected_behavior": "不应激活本 skill，应激活 risk-based-test-selection",
+      "notes": "跨 skill 混淆诱饵 (硬性要求至少 1 条): 防止同书 skill 互相抢调用"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "这个模块测了两周一个缺陷都没有，是不是说明可以不用再测了？",
+      "expected_behavior": "可激活：说明反向启发式（可能真少），但需结合覆盖/风险，避免与证无混淆；必要时协同 prove-presence / risk-based",
+      "notes": "边界: 长期零发现的反向成群"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。"
+}

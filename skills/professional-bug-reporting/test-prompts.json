@@ -1,0 +1,58 @@
+{
+  "skill": "professional-bug-reporting",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "登录偶现失败，我只有『有时会挂』一句话，帮我改成能让人修的缺陷报告。",
+      "expected_behavior": "应激活 professional-bug-reporting：补短小/单一/可再现步骤，中立表述，建议分离",
+      "notes": "正面：改写无效报告"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "自动化跑六小时才冒出来的错，项目经理觉得太极端不想修，怎么写报告？",
+      "expected_behavior": "应激活本 skill，强调缺陷分离为明显通用最小步骤后再定级提交",
+      "notes": "正面：经典分离案例"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "启动画面错别字和启动即崩溃，严重性 severity 和优先级 priority 怎么分别打？",
+      "expected_behavior": "应激活本 skill，解释严重性与优先级正交，给出示例分级",
+      "notes": "正面：定级"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "Git 里怎么撤销上一次 commit？",
+      "expected_behavior": "不应激活本 skill",
+      "notes": "诱饵：无关工具问题"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "完全测不完，我该按什么风险原则挑选还要跑的用例？",
+      "expected_behavior": "不应激活本 skill，应激活 risk-based-test-selection",
+      "notes": "跨 skill 混淆诱饵：风险选测"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "为什么说缺陷发现越晚费用按指数涨？我想用这个说服老板同意需求阶段介入测试。",
+      "expected_behavior": "不应激活本 skill，应激活 early-find-cost-curve",
+      "notes": "跨 skill 混淆诱饵：成本曲线"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "缺陷被标 Won't Fix，我手里有更常见的复现路径，想争取重开。",
+      "expected_behavior": "应激活本 skill（跟踪到底/用更通用用例重开），可轻量提及费用但不主讲 cost curve",
+      "notes": "边界：advocacy 仍属报告跟踪，不是纯组织 QA 议题"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "跨 skill 诱饵指向 risk-based-test-selection 与 early-find-cost-curve。"
+}

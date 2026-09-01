@@ -1,0 +1,58 @@
+{
+  "skill": "early-find-cost-curve",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "为什么缺陷在客户那边发现会贵到数量级？我想用成本曲线说服立项阶段就做测试。",
+      "expected_behavior": "应激活 early-find-cost-curve，讲指数/十倍模型与说明书期 vs 客户期对比",
+      "notes": "正面：成本曲线说服"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "这个低优先级 UI 问题能不能先不修发下去？用一致性/非一致性费用帮我权衡一下。",
+      "expected_behavior": "应激活本 skill，做 cost of quality 叙事并列出外部失败风险检查项",
+      "notes": "正面：triage + 质量费用"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "『质量是免费的』在软件里怎么解释？和尽早发现缺陷有什么关系？",
+      "expected_behavior": "应激活本 skill，用 Crosby 一致性 vs 非一致性费用解释，而非空喊口号",
+      "notes": "正面：Quality is Free"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "今天北京天气怎么样？",
+      "expected_behavior": "不应激活本 skill",
+      "notes": "诱饵：无关"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "输入组合爆炸，怎样用风险选出还要执行的测试用例并决定停测点？",
+      "expected_behavior": "不应激活本 skill，应激活 risk-based-test-selection",
+      "notes": "跨 skill 混淆诱饵：最优测试量/风险选测"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "金额字段要测哪些边界和次边界（包括 2 的幂）？给我等价类表。",
+      "expected_behavior": "不应激活本 skill，应激活 equivalence-and-boundaries",
+      "notes": "跨 skill 混淆诱饵：等价类与边界"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "内部已知的罕见计算误差，管理层想赶进度不修；会不会重演奔腾那种代价？",
+      "expected_behavior": "应激活本 skill（外部失败/声誉成本），可引用奔腾反例；具体写单技巧可次要指向 professional-bug-reporting",
+      "notes": "边界：费用+历史取舍，主技能仍是成本曲线"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "跨 skill 诱饵指向 risk-based-test-selection 与 equivalence-and-boundaries。"
+}

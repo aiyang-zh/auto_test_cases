@@ -1,0 +1,51 @@
+{
+  "skill": "four-quadrant-technique",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我们只有安装包没有源码也没有说明书，black-box white-box static dynamic 该怎么选？",
+      "expected_behavior": "应激活 four-quadrant-technique，映射到动态黑盒并提示探索式把软件当活说明书",
+      "notes": "约束选型"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "黑盒和白盒、静态和动态到底有什么区别？新人从哪一象限开始？",
+      "expected_behavior": "应激活本 skill，画出四象限并给起步建议",
+      "notes": "概念入门"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "有代码访问权，是先做代码审查还是直接跑起来做动态白盒？",
+      "expected_behavior": "应激活本 skill，按静/动×黑/白给出组合建议并警告白盒偏见",
+      "notes": "有码时的象限选择"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "把这段英文翻译成中文：Hello world",
+      "expected_behavior": "不应激活本 skill，因为是翻译任务",
+      "notes": "诱饵: 无关翻译"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "用户名长度 1–32，请给出等价类和边界、次边界测试数据",
+      "expected_behavior": "不应激活本 skill，应激活 equivalence-and-boundaries",
+      "notes": "跨 skill 混淆诱饵 (硬性要求至少 1 条): 防止同书 skill 互相抢调用"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "只有 OpenAPI 没有传统说明书，算不算可以做静态黑盒？",
+      "expected_behavior": "应激活：把 OpenAPI/契约文档视为说明书外延，落入静态黑盒，并注明时代补丁",
+      "notes": "边界: 现代『说明书』形态"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。"
+}

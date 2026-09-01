@@ -1,0 +1,51 @@
+{
+  "skill": "pesticide-paradox",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "CI 回归全绿好几个月了，生产却连续出事故，是不是 pesticide paradox？",
+      "expected_behavior": "应激活 pesticide-paradox，诊断免疫并给出换手法/写新测清单",
+      "notes": "绿测仍漏障"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "同一套手工用例每个迭代原样重跑，现在几乎找不到新缺陷，要不要换测试手法？",
+      "expected_behavior": "应激活本 skill，要求编写不同的新测试并覆盖不同部分",
+      "notes": "螺旋回归免疫"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "老板说自动化都跑过了就不用探索测试了，怎么反驳杀虫剂怪事？",
+      "expected_behavior": "应激活本 skill，引用自动化全绿仍可能免疫的警告",
+      "notes": "自动化过度依赖"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "帮我写一首关于春天的诗",
+      "expected_behavior": "不应激活本 skill，因为与测试无关",
+      "notes": "诱饵: 无关创作"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "刚在支付模块挖到一个边界 bug，要不要在附近继续加码搜索？",
+      "expected_behavior": "不应激活本 skill，应激活 bug-cluster-heuristic",
+      "notes": "跨 skill 混淆诱饵 (硬性要求至少 1 条): 防止同书 skill 互相抢调用"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "覆盖率分析显示 90% 未发现缺陷，是质量很好还是测试免疫？",
+      "expected_behavior": "应激活本 skill（或与 prove-presence 协同），提示可能免疫，需增加新用例再判断",
+      "notes": "边界: 高覆盖零发现的双重解释"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。"
+}

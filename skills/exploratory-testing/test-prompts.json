@@ -1,0 +1,58 @@
+{
+  "skill": "exploratory-testing",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "接手一个十年遗留后台，文档全丢了，只有能跑的构建，怎么系统测？",
+      "expected_behavior": "应激活 exploratory-testing：边学边记边测，把软件当活说明书，声明无法断言遗漏功能",
+      "notes": "正面：无文档遗留系统"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "项目是边写边改，没有产品说明书，能做探索测试吗？步骤怎么排？",
+      "expected_behavior": "应激活本 skill，给出学习-设计-执行并行步骤与先通过后失效顺序",
+      "notes": "正面：探索测试场景关键词"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "大爆炸交付只有 demo 包，我想 exploratory testing 摸功能并记缺陷。",
+      "expected_behavior": "应激活本 skill，强调记录功能地图 + 静态黑盒式分析 + 动态施压",
+      "notes": "正面：英文 trigger + 大爆炸"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "把这段 C# 代码的空引用风险讲一下就行。",
+      "expected_behavior": "不应激活本 skill，代码讲解/静态白盒范畴",
+      "notes": "诱饵：非探索场景"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "这是完整 PRD，请按静态黑盒先高后低审查说明书属性和问题用语。",
+      "expected_behavior": "不应激活本 skill，应激活 spec-static-blackbox-review",
+      "notes": "跨 skill 混淆诱饵：有说明书审查"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "同一套回归跑了半年全绿，生产仍出障，是不是杀虫剂现象？该怎么换手法？",
+      "expected_behavior": "不应激活本 skill，应激活 pesticide-paradox",
+      "notes": "跨 skill 混淆诱饵：杀虫剂现象"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "有一份过时两年的 wiki，和当前 UI 对不上；我想先摸软件再回头改文档。",
+      "expected_behavior": "可激活本 skill（规格不可靠≈无有效说明书），但应建议摸清后对照/更新规格并视情况组合 spec-static-blackbox-review",
+      "notes": "边界：过时文档是否算『无说明书』"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "跨 skill 诱饵指向 spec-static-blackbox-review 与 pesticide-paradox。"
+}

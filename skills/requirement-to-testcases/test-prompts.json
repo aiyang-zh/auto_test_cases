@@ -1,0 +1,51 @@
+{
+  "skill": "requirement-to-testcases",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "根据下面需求帮我出测试用例并写到 md：用户注册时手机号 11 位、密码 8–20 位需含字母和数字，注册成功跳转首页。",
+      "expected_behavior": "应激活 requirement-to-testcases，完成需求澄清/风险/等价类边界，并将用例写入 .md 文件",
+      "notes": "有完整需求 + 出用例 + 写 md"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "这个接口字段说明帮我生成测试点，覆盖正常和异常，保存成 docs/testcases 下的文件。",
+      "expected_behavior": "应激活本 skill，按默认路径写入 TC-*-YYYYMMDD.md，对话只汇报路径与条数",
+      "notes": "接口文档 + 指定目录"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "从需求生成 test cases：购物车结算满 100 减 20，库存不足不可下单。",
+      "expected_behavior": "应激活本 skill，产出含边界与失效类的结构化用例并落盘",
+      "notes": "英文 trigger 词"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "软件测试完全测完可能吗？测过了是不是就没 bug？",
+      "expected_behavior": "不应激活本 skill；应走 prove-presence-not-absence 或 risk-based-test-selection",
+      "notes": "跨 skill：纯理论无需求"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "帮我写一张专业的 bug 报告模板，怎么填严重性和优先级。",
+      "expected_behavior": "不应激活本 skill；应激活 professional-bug-reporting",
+      "notes": "跨 skill：只要缺陷报告"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "这个功能几乎没文档，只知道大概是上传图片，帮我出测试用例写到 md。",
+      "expected_behavior": "可激活本 skill：降级为探索测试清单仍写入 md，并标明假设与缺口",
+      "notes": "边界：需求不足时的降级交付"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。编排 skill 必须验证「写入 md」硬性要求。"
+}

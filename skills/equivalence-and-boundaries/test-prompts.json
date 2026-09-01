@@ -1,0 +1,51 @@
+{
+  "skill": "equivalence-and-boundaries",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "注册表单年龄 0–150，请用等价类和边界值设计测试数据，别忘了空值",
+      "expected_behavior": "应激活 equivalence-and-boundaries，划分合法/非法/空并取边界双侧点",
+      "notes": "经典字段设计"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "这个 API 的 limit 参数，要不要测 255/256 这种 2的幂次边界 sub-boundary？",
+      "expected_behavior": "应激活本 skill，解释次边界并给出邻近取点",
+      "notes": "次边界 / 英文 trigger"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "equivalence partitioning 怎么把海量输入缩成可控用例？边界怎么取？",
+      "expected_behavior": "应激活本 skill，讲清分类+边界优先流程",
+      "notes": "技法直问"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "1+1等于几",
+      "expected_behavior": "不应激活本 skill，因为是小学算术",
+      "notes": "诱饵: 无关计算"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "测过了是不是就能证明软件没有缺陷？fully tested 能写进报告吗？",
+      "expected_behavior": "不应激活本 skill，应激活 prove-presence-not-absence",
+      "notes": "跨 skill 混淆诱饵 (硬性要求至少 1 条): 防止同书 skill 互相抢调用"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "主要是复杂状态机转换，输入域其实很简单，还要先做等价类吗？",
+      "expected_behavior": "可弱激活或引导：数据域简单则轻量划类，重点转状态转换测试；不要硬套边界清单",
+      "notes": "边界: 状态测试 vs 数据等价类"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。"
+}

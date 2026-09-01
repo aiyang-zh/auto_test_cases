@@ -1,0 +1,51 @@
+{
+  "skill": "risk-based-test-selection",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "上线前还剩两天，回归自动化有 800 条，根本跑不完也看不过来，怎么决定停测？",
+      "expected_behavior": "应激活 risk-based-test-selection，按风险砍低价值类并声明剩余风险与停测条件",
+      "notes": "典型最优测试量 / 何时停场景"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "配置 × 浏览器 × 语言组合爆炸，risk-based testing 该怎么抽样？",
+      "expected_behavior": "应激活本 skill，框定爆炸面并按用户影响/频率排序抽样",
+      "notes": "组合爆炸 + 英文 trigger"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "老板说要完全测试完再发版，我该怎么跟他解释 optimal test amount？",
+      "expected_behavior": "应激活本 skill，用费用-漏测曲线说明完全测试不可能与最优测试量",
+      "notes": "沟通向的风险选测"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "帮我查一下 NUnit 最新版本号是多少",
+      "expected_behavior": "不应激活本 skill，因为这是纯信息查询",
+      "notes": "诱饵: 无关工具查询"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "年龄字段允许 1–120，等价类和边界值该取哪些数？",
+      "expected_behavior": "不应激活本 skill，应激活 equivalence-and-boundaries",
+      "notes": "跨 skill 混淆诱饵 (硬性要求至少 1 条): 防止同书 skill 互相抢调用"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "安全关键支付系统，法规要求接近穷尽路径覆盖，还能谈最优测试量吗？",
+      "expected_behavior": "可激活但必须强调本书商业风险框架的边界；停测伦理可能不适用，需叠加合规要求",
+      "notes": "边界: 强合规 vs 商业最优测试量"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。"
+}

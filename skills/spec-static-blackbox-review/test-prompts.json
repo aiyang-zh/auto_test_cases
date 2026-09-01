@@ -1,0 +1,58 @@
+{
+  "skill": "spec-static-blackbox-review",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "这是我们的支付 PRD，帮我做一次说明书式审查，标出不可测和遗漏的地方。",
+      "expected_behavior": "应激活 spec-static-blackbox-review，按高空→低空审查并产出规格缺陷/问题用语清单",
+      "notes": "正面：明确要审 PRD/说明书"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "需求里写『系统应尽可能快速响应』『有时发送通知』，静态黑盒怎么挑毛病？",
+      "expected_behavior": "应激活本 skill，用问题用语/属性清单指出模糊与不可量化表述",
+      "notes": "正面：问题用语 + 静态黑盒信号"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "还没开始写代码，我想先测产品说明书，从哪几步下手？",
+      "expected_behavior": "应激活本 skill，给出先高后低的审查步骤，而非直接设计运行用例",
+      "notes": "正面：早期说明书测试"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "帮我查一下 HTTP 429 状态码是什么意思。",
+      "expected_behavior": "不应激活本 skill，纯信息查询",
+      "notes": "诱饵：无关查询"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "注册表单年龄字段允许 1–120，我该怎么划等价类和边界值用例？",
+      "expected_behavior": "不应激活本 skill，应激活 equivalence-and-boundaries",
+      "notes": "跨 skill 混淆诱饵：等价类/边界"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "上线前两天还有八百条自动化，按风险该砍哪些、何时停测？",
+      "expected_behavior": "不应激活本 skill，应激活 risk-based-test-selection",
+      "notes": "跨 skill 混淆诱饵：风险选测"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "完全没有书面 PRD，只有一个可安装的旧客户端，我想系统摸清它能做什么再提缺陷。",
+      "expected_behavior": "不应主激活本 skill（或应明确降级并指向 exploratory-testing）；无书面规格时探索优先",
+      "notes": "边界：无说明书 → 探索测试兄弟 skill"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge；含跨 skill 诱饵指向 equivalence-and-boundaries / risk-based-test-selection。"
+}

@@ -1,0 +1,51 @@
+{
+  "skill": "prove-presence-not-absence",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "发布评审上产品经理说 QA 测过了，可以保证没 bug，我怎么回应？",
+      "expected_behavior": "应激活 prove-presence-not-absence，用检疫类比改写为存在性结论并列出剩余风险",
+      "notes": "典型证无越界话术"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "客户要求我们 prove there are no bugs before go-live，测试报告能这么写吗？",
+      "expected_behavior": "应激活本 skill，拒绝证无表述，改为已测范围 + 未测风险",
+      "notes": "英文 trigger: prove no bugs"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "用例全绿，是不是就能写『已完全测试、无缺陷』？",
+      "expected_behavior": "应激活本 skill，纠正完备证明幻觉",
+      "notes": "报告措辞场景"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "今天天气怎么样",
+      "expected_behavior": "不应激活本 skill，因为与测试认识论无关",
+      "notes": "诱饵: 完全无关"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "回归自动化跑了三年都是同一套，全绿但生产仍挂，是不是杀虫剂怪事？",
+      "expected_behavior": "不应激活本 skill，应激活 pesticide-paradox",
+      "notes": "跨 skill 混淆诱饵 (硬性要求至少 1 条): 防止同书 skill 互相抢调用"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我们用形式化方法证明了协议无死锁，还需要强调测试不能证无吗？",
+      "expected_behavior": "可轻度激活以区分『局部形式证明』与『整产品测试证无』；不要否定形式化，但提醒未形式化部分仍不能证无",
+      "notes": "边界: 形式化验证 vs 测试认识论"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0), 且其中至少 1 条是同书兄弟 skill 的场景 (跨 skill 混淆测试)。"
+}
